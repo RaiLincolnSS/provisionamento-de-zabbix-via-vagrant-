@@ -1,4 +1,4 @@
-# Zabbix Multi-Tier com Vagrant
+# Zabbix em 3 camadas com Vagrant
 
 
 Este projeto utiliza o Vagrant para automatizar a criação de um ambiente de monitorização Zabbix completo, distribuído numa arquitetura de 3 camadas (3-tier). Cada camada (Banco de Dados, Servidor de Aplicação e Frontend Web) é provisionada numa máquina virtual separada, proporcionando um ambiente isolado e organizado, ideal para laboratórios, testes ou estudos.
