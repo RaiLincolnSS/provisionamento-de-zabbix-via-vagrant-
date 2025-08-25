@@ -1,5 +1,4 @@
-# Zabbix em 3 camadas com Vagrant
-
+# Zabbix Multi-Tier com Vagrant
 
 Este projeto utiliza o Vagrant para automatizar a criação de um ambiente de monitorização Zabbix completo, distribuído numa arquitetura de 3 camadas (3-tier). Cada camada (Banco de Dados, Servidor de Aplicação e Frontend Web) é provisionada numa máquina virtual separada, proporcionando um ambiente isolado e organizado, ideal para laboratórios, testes ou estudos.
 
@@ -63,6 +62,33 @@ Antes de começar, certifique-se de que tem o seguinte software instalado na sua
         * **Port:** `10051`
 
     * Conclua os restantes passos do assistente.
+
+### Troubleshooting: Erro de Conexão com o Servidor Zabbix
+
+Se, após a configuração, o dashboard do Zabbix mostrar um erro a indicar que não consegue conectar-se ao servidor Zabbix, pode ser necessário definir o endereço do servidor manualmente no ficheiro de configuração. Siga estes passos:
+
+1.  **Aceda à máquina do frontend:**
+    ```bash
+    vagrant ssh zabbix-frontend
+    ```
+2.  **Abra o ficheiro de configuração para edição:**
+    ```bash
+    sudo nano /etc/zabbix/web/zabbix.conf.php
+    ```
+3.  **Localize e altere as seguintes linhas** (removendo os `//` do início para as descomentar):
+    ```php
+    // Altere de:
+    // $ZBX_SERVER                      = '';
+    // $ZBX_SERVER_PORT                 = '';
+
+    // Para:
+    $ZBX_SERVER                      = '192.168.3.111';
+    $ZBX_SERVER_PORT                 = '10051';
+    ```
+4.  **Salve o ficheiro e reinicie o Apache:**
+    ```bash
+    sudo systemctl restart apache2
+    ```
 
 ## Acesso
 
