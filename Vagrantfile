@@ -14,7 +14,9 @@ Vagrant.configure("2") do |config|
     db.vm.box = "ubuntu/jammy64"
     db.vm.hostname = "zabbix-db"
     # Alterado para public_network para conectar à sua rede local
-    db.vm.network "public_network", ip: "192.168.3.110"
+    db.vm.network "public_network", ip: "192.168.3.110",
+      bridge: "enp6s0"
+
 
     db.vm.provider "virtualbox" do |v|
       v.memory = 1024
@@ -58,7 +60,8 @@ Vagrant.configure("2") do |config|
     server.vm.box = "ubuntu/jammy64"
     server.vm.hostname = "zabbix-server"
     # Alterado para public_network para conectar à sua rede local
-    server.vm.network "public_network", ip: "192.168.3.111"
+    server.vm.network "public_network", ip: "192.168.3.111",
+      bridge: "enp6s0"
     
     # O servidor do Zabbix depende que o banco de dados esteja no ar
     server.vm.provision "shell", run: "once", inline: "echo 'Aguardando o DB iniciar...'; sleep 15"
@@ -108,7 +111,8 @@ Vagrant.configure("2") do |config|
     frontend.vm.box = "ubuntu/jammy64"
     frontend.vm.hostname = "zabbix-frontend"
     # Alterado para public_network para conectar à sua rede local
-    frontend.vm.network "public_network", ip: "192.168.3.112"
+    frontend.vm.network "public_network", ip: "192.168.3.112",
+      bridge: "enp6s0"
     
     # Expõe a porta 80 da VM para a porta 8080 da sua máquina local
     frontend.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
